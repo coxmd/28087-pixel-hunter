@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
-* Студент: [ARIJ](https://up.htmlacademy.ru/ecmascript/3/user/28087).
-* Наставник: `Неизвестно`.
+* Студент: [Александр Пилипчук](https://up.htmlacademy.ru/ecmascript/3/user/28087).
+* Наставник: [Егор Огарков](https://up.htmlacademy.ru/ecmascript/3/user/58697).
 
 ---
 
