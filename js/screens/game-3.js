@@ -61,12 +61,10 @@ screenTemplate.querySelector(`.back`).addEventListener(`click`, () => {
   showScreen(screenBack);
 });
 
-const answers = screenTemplate.querySelectorAll(`.game__option`);
-
-answers.forEach((item) => {
-  item.addEventListener(`click`, () => {
+screenTemplate.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
+  if (evt.target.classList.contains(`game__option`)) {
     showScreen(nextScreen);
-  });
+  }
 });
 
 export default screenTemplate;

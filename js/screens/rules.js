@@ -44,13 +44,13 @@ screenTemplate.querySelector(`.back`).addEventListener(`click`, () => {
 });
 
 const nextBtn = screenTemplate.querySelector(`.rules__button`);
-const nameInput = screenTemplate.querySelector(`.rules__input`);
 
-nameInput.addEventListener(`input`, () => {
-  nextBtn.disabled = false;
-  nextBtn.addEventListener(`click`, () => {
-    showScreen(nextScreen);
-  });
+screenTemplate.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
+  nextBtn.disabled = evt.target.value === ``;
+});
+
+nextBtn.addEventListener(`click`, () => {
+  showScreen(nextScreen);
 });
 
 export default screenTemplate;
