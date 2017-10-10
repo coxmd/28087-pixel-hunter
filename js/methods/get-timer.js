@@ -1,14 +1,15 @@
-const TIME_LIMIT = 30;
-
-const getTimer = (value = TIME_LIMIT) => {
+const getTimer = (value) => {
   return {
-    VALUE: value > 0 ? value : `Время истекло`,
+    VALUE: value,
+    TIME: value,
     tick() {
-      return getTimer(value - 1);
+      this.TIME--;
+      if (this.TIME > 0) {
+        return this.TIME;
+      } else {
+        return `Время истекло`;
+      }
     },
-    reset() {
-      return getTimer(TIME_LIMIT);
-    }
   };
 };
 
