@@ -1,6 +1,5 @@
 const getTimer = (value) => {
   return {
-    VALUE: value,
     TIME: value,
     tick() {
       this.TIME--;

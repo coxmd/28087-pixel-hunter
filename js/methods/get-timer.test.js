@@ -4,7 +4,7 @@ import getTimer from './get-timer';
 describe(`Timer`, () => {
   it(`should return 30`, () => {
     const timer = getTimer(30);
-    assert(timer.VALUE === 30);
+    assert(timer.TIME === 30);
   });
 
   it(`should return timer end`, () => {

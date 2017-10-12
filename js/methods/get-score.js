@@ -12,6 +12,9 @@ const Config = {
       POINTS: 150,
       TIME_LIMIT: 10
     },
+    ERROR: {
+      POINTS: 0
+    }
   },
   LIFE_BONUS: 50,
   QUESTIONS_NUM: 10,
@@ -21,28 +24,8 @@ const getScore = (answers, lives) => {
   if (answers.length < Config.QUESTIONS_NUM) {
     return -1;
   }
-
-  let score = 0;
-
-  for (const answer of answers) {
-
-    if (answer.VALUE) {
-
-      let answerSpeed;
-      for (const k in Config.ANSWER_RATE) {
-        if (answer.TIME <= Config.ANSWER_RATE[k].TIME_LIMIT) {
-          answerSpeed = k;
-        }
-      }
-      if (answerSpeed) {
-        score += Config.ANSWER_RATE[answerSpeed].POINTS;
-      }
-    }
-  }
-
-  if (lives > 0) {
-    score += lives * Config.LIFE_BONUS;
-  }
+  let score = answers.reduce((sum, current) => sum + Config.ANSWER_RATE[current].POINTS, 0);
+  score += lives * Config.LIFE_BONUS;
   return score;
 };
 
