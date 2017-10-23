@@ -21,5 +21,4 @@ export default (data = screenData) => {
   });
 
   return screenTemplate;
-}
-
+};

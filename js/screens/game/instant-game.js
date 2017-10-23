@@ -16,13 +16,13 @@ export default () => {
     addAnswer(item) {
       this.answers.push(item);
       this.questions--;
-      if(item === `ERROR`){
+      if (item === `ERROR`) {
         this.lives--;
       }
     },
 
-    showNext(){
-      if(this.questions > 0 && this.lives >= 0){
+    showNext() {
+      if (this.questions > 0 && this.lives >= 0) {
         const newQuestion = question();
         const screenTemplate = getTemplate(gameView(newQuestion, this));
 
@@ -30,45 +30,42 @@ export default () => {
           showScreen(screenBack);
         });
 
-        switch (newQuestion.type){
-          case 'game-1':
+        switch (newQuestion.type) {
+          case `game-1`:
             const answerContainer = screenTemplate.querySelector(`.game__content`);
 
             answerContainer.addEventListener(`click`, () => {
               const answerItems = answerContainer.querySelectorAll(`.game__answer :checked`);
               if (answerItems.length === 2) {
-                if(newQuestion.answers[answerItems[0].name][answerItems[0].value] && newQuestion.answers[answerItems[1].name][answerItems[1].value]){
+                if (newQuestion.answers[answerItems[0].name][answerItems[0].value] && newQuestion.answers[answerItems[1].name][answerItems[1].value]) {
                   this.addAnswer(getAnswer(true));
-                }
-                else {
+                } else {
                   this.addAnswer(getAnswer(false));
                 }
                 this.showNext();
               }
             });
             break;
-          case 'game-2':
+          case `game-2`:
             const answers = screenTemplate.querySelectorAll(`input[name=question1]`);
 
             answers.forEach((item) => {
               item.addEventListener(`click`, (evt) => {
-                if(newQuestion.answers[evt.target.name][evt.target.value]){
+                if (newQuestion.answers[evt.target.name][evt.target.value]) {
                   this.addAnswer(getAnswer(true));
-                }
-                else {
+                } else {
                   this.addAnswer(getAnswer(false));
                 }
                 this.showNext();
               });
             });
             break;
-          case 'game-3':
+          case `game-3`:
             screenTemplate.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
               if (evt.target.classList.contains(`game__option`)) {
-                if(newQuestion.answers[evt.target.dataset.option]){
+                if (newQuestion.answers[evt.target.dataset.option]) {
                   this.addAnswer(getAnswer(true));
-                }
-                else {
+                } else {
                   this.addAnswer(getAnswer(false));
                 }
                 this.showNext();
@@ -78,10 +75,9 @@ export default () => {
         }
         showScreen(screenTemplate);
         checkImageSizes();
-      }
-      else {
+      } else {
         showScreen(screenStat(this));
       }
     },
-  }
+  };
 };

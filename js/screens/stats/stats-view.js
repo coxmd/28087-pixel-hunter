@@ -50,8 +50,7 @@ export default (game, data = screenData) => {
       </tr>
     </table>
 `;
-  }
-  else {
+  } else {
     content += `<h1>${data.title.lost}</h1>
 <table class="result__table">
       <tr>
@@ -75,4 +74,4 @@ export default (game, data = screenData) => {
   });
 
   return screenTemplate;
-}
+};

@@ -1,20 +1,20 @@
 const photos = [
   // People
-  'http://i.imgur.com/1KegWPz.jpg',
+  `http://i.imgur.com/1KegWPz.jpg`,
   // Animals
-  'https://i.imgur.com/DiHM5Zb.jpg',
+  `https://i.imgur.com/DiHM5Zb.jpg`,
   // Nature
-  'http://i.imgur.com/DKR1HtB.jpg'
+  `http://i.imgur.com/DKR1HtB.jpg`
 ];
 
 const pictures = [
   // People
-  'https://k42.kn3.net/CF42609C8.jpg',
+  `https://k42.kn3.net/CF42609C8.jpg`,
   // Animals
-  'https://k42.kn3.net/D2F0370D6.jpg',
+  `https://k42.kn3.net/D2F0370D6.jpg`,
   // Nature
-  'https://k32.kn3.net/5C7060EC5.jpg'
-  ];
+  `https://k32.kn3.net/5C7060EC5.jpg`
+];
 
 const questionTypes = {
   TWO_IMAGES: `game-1`,
@@ -25,26 +25,26 @@ const questionTypes = {
 const questions = [
   {
     type: questionTypes.TWO_IMAGES,
-    task: 'Угадайте для каждого изображения фото или рисунок?',
+    task: `Угадайте для каждого изображения фото или рисунок?`,
     src: {
       question1: photos[0],
       question2: pictures[1]
     },
     answers: {
-        question1: {
-          photo: true,
-          paint: false,
-        },
-        question2: {
-          photo: false,
-          paint: true,
-        },
-      }
+      question1: {
+        photo: true,
+        paint: false,
+      },
+      question2: {
+        photo: false,
+        paint: true,
+      },
+    }
   },
 
   {
     type: questionTypes.ONE_IMAGE,
-    task: 'Угадай, фото или рисунок?',
+    task: `Угадай, фото или рисунок?`,
     src: photos[0],
     answers: {
       question1: {
@@ -56,7 +56,7 @@ const questions = [
 
   {
     type: questionTypes.ONE_OF_THREE,
-    task: 'Найдите рисунок среди изображений',
+    task: `Найдите рисунок среди изображений`,
     src: [pictures[0], photos[2], photos[1]],
     answers: {
       'option1': true,
@@ -67,7 +67,7 @@ const questions = [
 
   {
     type: questionTypes.TWO_IMAGES,
-    task: 'Угадайте для каждого изображения фото или рисунок?',
+    task: `Угадайте для каждого изображения фото или рисунок?`,
     src: {
       question1: photos[1],
       question2: pictures[0]
@@ -86,7 +86,7 @@ const questions = [
 
   {
     type: questionTypes.ONE_IMAGE,
-    task: 'Угадай, фото или рисунок?',
+    task: `Угадай, фото или рисунок?`,
     src: pictures[2],
     answers: {
       question1: {
@@ -98,7 +98,7 @@ const questions = [
 
   {
     type: questionTypes.ONE_IMAGE,
-    task: 'Угадай, фото или рисунок?',
+    task: `Угадай, фото или рисунок?`,
     src: pictures[1],
     answers: {
       question1: {
@@ -110,7 +110,7 @@ const questions = [
 
   {
     type: questionTypes.ONE_OF_THREE,
-    task: 'Найдите рисунок среди изображений',
+    task: `Найдите рисунок среди изображений`,
     src: [photos[2], photos[1], pictures[0]],
     answers: {
       'option1': false,
@@ -124,4 +124,4 @@ const questions = [
 export default () => {
   const questionIndex = Math.floor(Math.random() * questions.length);
   return questions[questionIndex];
-}
+};
