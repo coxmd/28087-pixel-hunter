@@ -2,6 +2,7 @@ import getTemplate from '../../methods/get-template';
 import getAnswer from '../../methods/get-answer';
 import showScreen from '../../methods/show-screen';
 import question from '../../methods/get-question';
+import checkImageSizes from '../../methods/check-image-sizes';
 import gameView from './game-view';
 import screenBack from '../greeting/greeting-view';
 import screenStat from '../stats/stats-view';
@@ -76,6 +77,7 @@ export default () => {
             break;
         }
         showScreen(screenTemplate);
+        checkImageSizes();
       }
       else {
         showScreen(screenStat(this));

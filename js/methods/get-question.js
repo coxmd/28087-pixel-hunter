@@ -27,13 +27,13 @@ const questions = [
     type: questionTypes.TWO_IMAGES,
     task: 'Угадайте для каждого изображения фото или рисунок?',
     src: {
-      question1: pictures[0],
+      question1: photos[0],
       question2: pictures[1]
     },
     answers: {
         question1: {
-          photo: false,
-          paint: true,
+          photo: true,
+          paint: false,
         },
         question2: {
           photo: false,
@@ -57,7 +57,7 @@ const questions = [
   {
     type: questionTypes.ONE_OF_THREE,
     task: 'Найдите рисунок среди изображений',
-    src: [pictures[2], photos[1], photos[2]],
+    src: [pictures[0], photos[2], photos[1]],
     answers: {
       'option1': true,
       'option2': false,
@@ -69,8 +69,8 @@ const questions = [
     type: questionTypes.TWO_IMAGES,
     task: 'Угадайте для каждого изображения фото или рисунок?',
     src: {
-      question1: photos[2],
-      question2: pictures[2]
+      question1: photos[1],
+      question2: pictures[0]
     },
     answers: {
       question1: {
@@ -87,11 +87,23 @@ const questions = [
   {
     type: questionTypes.ONE_IMAGE,
     task: 'Угадай, фото или рисунок?',
-    src: photos[1],
+    src: pictures[2],
     answers: {
       question1: {
-        photo: true,
-        paint: false,
+        photo: false,
+        paint: true,
+      },
+    }
+  },
+
+  {
+    type: questionTypes.ONE_IMAGE,
+    task: 'Угадай, фото или рисунок?',
+    src: pictures[1],
+    answers: {
+      question1: {
+        photo: false,
+        paint: true,
       },
     }
   },
@@ -99,7 +111,7 @@ const questions = [
   {
     type: questionTypes.ONE_OF_THREE,
     task: 'Найдите рисунок среди изображений',
-    src: [photos[1], photos[0], pictures[0]],
+    src: [photos[2], photos[1], pictures[0]],
     answers: {
       'option1': false,
       'option2': false,
