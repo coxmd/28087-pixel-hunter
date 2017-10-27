@@ -1,15 +1,16 @@
-import screenData from './rules-data';
+import AbstractView from '../../abstract-view';
+import data from './rules-data';
 import getHeader from '../header';
 import getFooter from '../footer';
-import getTemplate from '../../methods/get-template';
-import showScreen from '../../methods/show-screen';
-import nextScreen from '../game/game';
-import screenBack from '../greeting/greeting-view';
 
 
-export default (data = screenData) => {
+export default class RulesView extends AbstractView {
+  constructor() {
+    super();
+  }
 
-  const content = `${getHeader()}
+  get template() {
+    return `${getHeader()}
 <div class="rules">
     <h1 class="rules__title">${data.title}</h1>
     <p class="rules__description">${data.description}</p>
@@ -19,22 +20,31 @@ export default (data = screenData) => {
     </form>
   </div>
     ${getFooter()}`;
+  }
 
-  const screenTemplate = getTemplate(content);
+  bind() {
+    this.element.querySelector(`.back`).onclick = (evt) => {
+      evt.preventDefault();
+      this.goBack();
+    };
 
-  screenTemplate.querySelector(`.back`).addEventListener(`click`, () => {
-    showScreen(screenBack());
-  });
+    this.element.querySelector(`.rules__button`).onclick = (evt) => {
+      evt.preventDefault();
+      this.goNext();
+    };
 
-  const nextBtn = screenTemplate.querySelector(`.rules__button`);
+    this.element.querySelector(`.rules__input`).oninput = (evt) => {
+      evt.preventDefault();
+      this.onInput(evt);
+    };
+  }
 
-  screenTemplate.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
-    nextBtn.disabled = evt.target.value === ``;
-  });
+  goBack() {
+  }
 
-  nextBtn.addEventListener(`click`, () => {
-    nextScreen();
-  });
+  goNext() {
+  }
 
-  return screenTemplate;
-};
+  onInput() {
+  }
+}

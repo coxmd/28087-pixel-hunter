@@ -1,24 +1,30 @@
-import screenData from './intro-data';
+import AbstractView from '../../abstract-view';
+import data from './intro-data';
 import getFooter from '../footer';
-import getTemplate from '../../methods/get-template';
-import showScreen from '../../methods/show-screen';
-import nextScreen from '../greeting/greeting-view';
 
-export default (data = screenData) => {
+export default class InrtoView extends AbstractView {
+  constructor() {
+    super();
+  }
 
-  const content = `<div id="main" class="central__content">
+  get template() {
+    return `<div id="main" class="central__content">
     <div id="intro" class="intro">
       <h1 class="intro__asterisk">*</h1>
       <p class="intro__motto">${data.description}</p>
     </div>
   </div>
-    ${getFooter()}`;
+  ${getFooter()}`;
+  }
 
-  const screenTemplate = getTemplate(content);
+  bind() {
+    this.element.querySelector(`.intro__asterisk`).onclick = (evt) => {
+      evt.preventDefault();
+      this.goNext();
+    };
+  }
 
-  screenTemplate.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
-    showScreen(nextScreen());
-  });
+  goNext() {
+  }
+}
 
-  return screenTemplate;
-};
