@@ -1,83 +1,82 @@
-import getTemplate from '../../methods/get-template';
+import View from './game-view';
+import getQuestion from '../../methods/get-question';
+import screenBack from '../greeting/greeting';
 import getAnswer from '../../methods/get-answer';
 import showScreen from '../../methods/show-screen';
-import question from '../../methods/get-question';
 import checkImageSizes from '../../methods/check-image-sizes';
-import gameView from './game-view';
-import screenBack from '../greeting/greeting-view';
-import screenStat from '../stats/stats-view';
+import screenStats from '../stats/stats';
+import Timer from '../../methods/get-timer';
 
-export default () => {
-  return {
-    lives: 3,
-    answers: [],
-    questions: 10,
+export default class InstantGame {
+  constructor() {
+    this.lives = 3;
+    this.answers = [];
+    this.questions = 10;
+    this.timer = new Timer(30);
+  }
 
-    addAnswer(item) {
-      this.answers.push(item);
-      this.questions--;
-      if (item === `ERROR`) {
-        this.lives--;
+  addAnswer(answerValue) {
+    const newAnswer = getAnswer(answerValue, this.timer.time);
+    this.timer.reset();
+    clearInterval(this._currTimer);
+    this.answers.push(newAnswer);
+    this.questions--;
+    if (newAnswer === `ERROR`) {
+      this.lives--;
+    }
+  }
+
+  timeControl(screen) {
+    const timeContainer = screen.element.querySelector(`.game__timer`);
+    this._currTimer = setInterval(() => {
+      if (this.timer.time === 0) {
+        this.addAnswer(false);
+        this.next();
       }
-    },
+      timeContainer.innerText = this.timer.tick();
+    }, 1000);
+  }
 
-    showNext() {
-      if (this.questions > 0 && this.lives >= 0) {
-        const newQuestion = question();
-        const screenTemplate = getTemplate(gameView(newQuestion, this));
+  next() {
+    if (this.questions > 0 && this.lives >= 0) {
+      const currQuestion = getQuestion();
+      const screen = new View(currQuestion, {lives: this.lives, answers: this.answers, timer: this.timer.time});
+      this.timeControl(screen);
 
-        screenTemplate.querySelector(`.back`).addEventListener(`click`, () => {
-          showScreen(screenBack);
-        });
+      showScreen(screen);
+      checkImageSizes();
 
-        switch (newQuestion.type) {
+      screen.goBack = () => {
+        showScreen(screenBack());
+      };
+
+      screen.onAnswerClick = (element, evt) => {
+
+        const answerContainer = element.querySelector(`.game__content`);
+        switch (currQuestion.type) {
           case `game-1`:
-            const answerContainer = screenTemplate.querySelector(`.game__content`);
-
-            answerContainer.addEventListener(`click`, () => {
-              const answerItems = answerContainer.querySelectorAll(`.game__answer :checked`);
-              if (answerItems.length === 2) {
-                if (newQuestion.answers[answerItems[0].name][answerItems[0].value] && newQuestion.answers[answerItems[1].name][answerItems[1].value]) {
-                  this.addAnswer(getAnswer(true));
-                } else {
-                  this.addAnswer(getAnswer(false));
-                }
-                this.showNext();
-              }
-            });
+            const answerItems = answerContainer.querySelectorAll(`.game__answer :checked`);
+            if (answerItems.length === 2) {
+              this.addAnswer(currQuestion.answers[answerItems[0].name][answerItems[0].value] && currQuestion.answers[answerItems[1].name][answerItems[1].value]);
+              this.next();
+            }
             break;
           case `game-2`:
-            const answers = screenTemplate.querySelectorAll(`input[name=question1]`);
-
-            answers.forEach((item) => {
-              item.addEventListener(`click`, (evt) => {
-                if (newQuestion.answers[evt.target.name][evt.target.value]) {
-                  this.addAnswer(getAnswer(true));
-                } else {
-                  this.addAnswer(getAnswer(false));
-                }
-                this.showNext();
-              });
-            });
+            if (evt.target.name === `question1`) {
+              this.addAnswer(currQuestion.answers[evt.target.name][evt.target.value]);
+              this.next();
+            }
             break;
           case `game-3`:
-            screenTemplate.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
-              if (evt.target.classList.contains(`game__option`)) {
-                if (newQuestion.answers[evt.target.dataset.option]) {
-                  this.addAnswer(getAnswer(true));
-                } else {
-                  this.addAnswer(getAnswer(false));
-                }
-                this.showNext();
-              }
-            });
+            if (evt.target.classList.contains(`game__option`)) {
+              this.addAnswer(currQuestion.answers[evt.target.dataset.option]);
+              this.next();
+            }
             break;
         }
-        showScreen(screenTemplate);
-        checkImageSizes();
-      } else {
-        showScreen(screenStat(this));
-      }
-    },
-  };
-};
+      };
+    } else {
+      showScreen(screenStats(this));
+    }
+  }
+}

@@ -1,15 +1,21 @@
-const getTimer = (value) => {
-  return {
-    TIME: value,
-    tick() {
-      this.TIME--;
-      if (this.TIME > 0) {
-        return this.TIME;
-      } else {
-        return `Время истекло`;
-      }
-    },
-  };
-};
+class Timer {
+  constructor(time) {
+    this._timeLimit = time;
+    this.time = time;
+    this.message = `Время истекло`;
+  }
 
-export default getTimer;
+  tick() {
+    this.time--;
+    if (this.time === 0) {
+      return this.message;
+    }
+    return this.time;
+  }
+
+  reset() {
+    this.time = this._timeLimit;
+  }
+}
+
+export default Timer;

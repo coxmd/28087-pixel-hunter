@@ -7,40 +7,40 @@ describe(`Score counter`, () => {
 
   describe(`Answer scores check`, () => {
     it(`should return 1000: all normal & no lives bonus`, () => {
-      assert(getScore(defaultAnswers, 0) === 1000);
+      assert(getScore(defaultAnswers, 0).total === 1000);
     });
 
     it(`should return 1500: all fast & no lives bonus`, () => {
       const answers = [`FAST`, `FAST`, `FAST`, `FAST`, `FAST`, `FAST`, `FAST`, `FAST`, `FAST`, `FAST`];
-      assert(getScore(answers, 0) === 1500);
+      assert(getScore(answers, 0).total === 1500);
     });
 
     it(`should return 500: all slow & no lives bonus`, () => {
       const answers = [`SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`, `SLOW`];
-      assert(getScore(answers, 0) === 500);
+      assert(getScore(answers, 0).total === 500);
     });
   });
 
   describe(`Lives bonus check`, () => {
     it(`should return 1000 (no lives bonus)`, () => {
-      assert(getScore(defaultAnswers, 0) === 1000);
+      assert(getScore(defaultAnswers, 0).total === 1000);
     });
     it(`should return 1050 (1 bonus)`, () => {
-      assert(getScore(defaultAnswers, 1) === 1050);
+      assert(getScore(defaultAnswers, 1).total === 1050);
     });
     it(`should return 1150 (3 bonus)`, () => {
-      assert(getScore(defaultAnswers, 3) === 1150);
+      assert(getScore(defaultAnswers, 3).total === 1150);
     });
   });
 
   describe(`Combo`, () => {
     it(`should return 700: 2 fast(300) + 3 normal (300) + 2 slow (100) & 3 errors`, () => {
       const answers = [`FAST`, `FAST`, `NORMAL`, `NORMAL`, `NORMAL`, `SLOW`, `SLOW`, `ERROR`, `ERROR`, `ERROR`];
-      assert(getScore(answers, 0) === 700);
+      assert(getScore(answers, 0).total === 700);
     });
     it(`should return 800: 2 fast(300) + 3 normal (300) + 2 slow (100) & 3 errors + 2 lives`, () => {
       const answers = [`FAST`, `FAST`, `NORMAL`, `NORMAL`, `NORMAL`, `SLOW`, `SLOW`, `ERROR`, `ERROR`, `ERROR`];
-      assert(getScore(answers, 2) === 800);
+      assert(getScore(answers, 2).total === 800);
     });
   });
 
