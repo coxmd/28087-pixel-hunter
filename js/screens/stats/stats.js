@@ -1,11 +1,15 @@
-import View from './stats-view';
 import showScreen from '../../methods/show-screen';
-import screenBack from '../greeting/greeting';
+import App from '../../application';
+import View from './stats-view';
 
-export default (game) => {
-  const screen = new View(game);
-  screen.goBack = () => {
-    showScreen(screenBack());
-  };
-  return screen;
-};
+class StatsScreen {
+  init(state) {
+    this.view = new View(state);
+    showScreen(this.view);
+    this.view.goBack = () => {
+      App.showGreeting();
+    };
+  }
+}
+
+export default new StatsScreen();

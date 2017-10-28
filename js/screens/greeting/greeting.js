@@ -1,10 +1,18 @@
-import View from './greeting-view';
 import showScreen from '../../methods/show-screen';
-import nextScreen from '../rules/rules';
+import App from '../../application';
+import View from './greeting-view';
 
-const screen = new View();
-screen.goNext = () => {
-  showScreen(nextScreen());
-};
+class GreetingScreen {
+  constructor() {
+    this.view = new View();
+  }
 
-export default () => screen;
+  init() {
+    showScreen(this.view);
+    this.view.goNext = () => {
+      App.showRules();
+    };
+  }
+}
+
+export default new GreetingScreen();
