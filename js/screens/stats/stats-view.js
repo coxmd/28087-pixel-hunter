@@ -16,7 +16,7 @@ export default class StatsView extends AbstractView {
     let content = `${getHeader()}
 <div class="result">`;
 
-    if (this.game.questions === 0 && this.game.lives >= 0) {
+    if (this.game.answers.length === 10 && this.game.lives >= 0) {
       const score = getScore(this.game.answers, this.game.lives);
       content += `<h1>${data.title.win}</h1>
 <table class="result__table">

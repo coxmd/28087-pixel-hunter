@@ -78,7 +78,11 @@ class GameScreen {
         }
       };
     } else {
-      App.showStats(this);
+      const statsData = {
+        lives: this.lives,
+        answers: this.answers,
+      };
+      App.showStats(statsData);
     }
   }
 }
