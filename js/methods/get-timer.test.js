@@ -13,7 +13,7 @@ describe(`Timer`, () => {
   });
 
   it(`should return 29...25`, () => {
-    let timer = new Timer(30);
+    const timer = new Timer(30);
     for (let i = 29; i > 25; i--) {
       assert(timer.tick() === i);
     }

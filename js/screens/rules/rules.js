@@ -1,20 +1,28 @@
-import View from './rules-view';
 import showScreen from '../../methods/show-screen';
-import goGame from '../game/game';
-import screenBack from '../greeting/greeting';
+import App from '../../application';
+import View from './rules-view';
 
+class RulesScreen {
+  constructor() {
+    this.view = new View();
+  }
 
-const screen = new View();
-screen.goNext = () => {
-  goGame();
-};
-screen.goBack = () => {
-  showScreen(screenBack());
-};
+  init() {
+    showScreen(this.view);
 
-const nextBtn = screen.element.querySelector(`.rules__button`);
-screen.onInput = (evt) => {
-  nextBtn.disabled = evt.target.value === ``;
-};
+    const nextBtn = this.view.element.querySelector(`.rules__button`);
+    this.view.onInput = (evt) => {
+      nextBtn.disabled = evt.target.value === ``;
+    };
 
-export default () => screen;
+    this.view.goNext = () => {
+      App.showGame();
+    };
+
+    this.view.goBack = () => {
+      App.showGreeting();
+    };
+  }
+}
+
+export default new RulesScreen();
