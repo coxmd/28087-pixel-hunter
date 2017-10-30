@@ -34,9 +34,8 @@ const routes = {
 };
 
 export default class Application {
-
-
   static init() {
+    introScreen.init();
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
