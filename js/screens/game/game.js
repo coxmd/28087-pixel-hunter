@@ -1,7 +1,7 @@
 import showScreen from '../../methods/show-screen';
 import App from '../../application';
 import View from './game-view';
-import {loaderQuestions, randomQuestion as getQuestion, QuestionType, AnswerType} from '../../methods/get-question';
+import {randomQuestion as getQuestion, QuestionType, AnswerType} from '../../methods/get-question';
 import getAnswer from '../../methods/get-answer';
 import checkImageSizes from '../../methods/check-image-sizes';
 import Timer from '../../methods/get-timer';
@@ -13,20 +13,7 @@ class GameScreen {
     this.questions = 10;
     this.timer = new Timer(30);
     clearInterval(this._currTimer);
-    if (typeof this.questionList === `undefined`) {
-      loaderQuestions.then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else if (response.status === 404) {
-          return [];
-        }
-        throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
-      }).then((data) => {
-        this.questionList = data;
-      }).then(() => this.next());
-    } else {
-      this.next();
-    }
+    this.next();
   }
 
   addAnswer(answerValue) {
@@ -53,7 +40,7 @@ class GameScreen {
 
   next() {
     if (this.questions > 0 && this.lives >= 0) {
-      const currQuestion = getQuestion(this.questionList);
+      const currQuestion = getQuestion(App.questionList);
       const screen = new View(currQuestion, {lives: this.lives, answers: this.answers, timer: this.timer.time});
       this.timeControl(screen);
 
