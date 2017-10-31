@@ -81,7 +81,7 @@ export default class StatsView extends AbstractView {
 <table class="result__table">${content}</table>`;
   }
 
-  showErrorScreen(){
+  showErrorScreen() {
     this.resultElement.innerHTML = `<h1>Не удалось загрузить данные статистики :(</h1>`;
   }
 

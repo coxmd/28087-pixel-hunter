@@ -13,10 +13,7 @@ class StatsScreen {
     };
 
     if (typeof App.userName !== `undefined`) {
-      loadResults(App.userName)
-        .then((response) => response.json())
-        .then((results) => this.view.showResults(results))
-        .catch(() => this.view.showErrorScreen());
+      loadResults(App.userName).then((response) => response.json()).then((results) => this.view.showResults(results)).catch(() => this.view.showErrorScreen());
     } else {
       this.view.showErrorScreen();
     }
