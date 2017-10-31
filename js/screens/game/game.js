@@ -45,7 +45,7 @@ class GameScreen {
       this.timeControl(screen);
 
       showScreen(screen);
-      checkImageSizes();
+      checkImageSizes(screen.element);
 
       screen.goBack = () => {
         App.showGreeting();

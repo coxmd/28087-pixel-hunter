@@ -14,8 +14,8 @@ export const resize = (frame, given) => {
   return image;
 };
 
-export default () => {
-  const gameImages = document.querySelectorAll(`.game__option`);
+export default (screen) => {
+  const gameImages = screen.querySelectorAll(`.game__option`);
   gameImages.forEach(function (item) {
     const frameSizes = {
       width: item.clientWidth,
