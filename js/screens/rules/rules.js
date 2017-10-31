@@ -16,6 +16,7 @@ class RulesScreen {
     };
 
     this.view.goNext = () => {
+      App.userName = this.view.element.querySelector(`.rules__input`).value;
       App.showGame();
     };
 
