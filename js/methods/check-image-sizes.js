@@ -1,15 +1,37 @@
+export const resize = (frame, given) => {
+  const image = {
+    width: given.width,
+    height: given.height,
+  };
+  if (image.height > frame.height) {
+    image.height = frame.height;
+    image.width = image.height * given.width / given.height;
+  }
+  if (image.width > frame.width) {
+    image.width = frame.width;
+    image.height = image.width * given.height / given.width;
+  }
+  return image;
+};
+
 export default () => {
-  const gameImages = document.querySelectorAll(`.game__content img`);
+  const gameImages = document.querySelectorAll(`.game__option`);
   gameImages.forEach(function (item) {
+    const frameSizes = {
+      width: item.clientWidth,
+      height: item.clientHeight,
+    };
+    const imageElement = item.querySelector(`img`);
     const image = new Image();
-    image.src = item.src;
+    image.src = imageElement.src;
     image.onload = function () {
-      const currentHeight = item.height;
-      item.height = item.naturalHeight * item.width / item.naturalWidth;
-      if (item.height > currentHeight) {
-        item.height = currentHeight;
-        item.width = item.naturalWidth * item.height / item.naturalHeight;
-      }
+      const imageSize = {
+        width: image.width,
+        height: image.height,
+      };
+      const imageNewSize = resize(frameSizes, imageSize);
+      imageElement.width = imageNewSize.width;
+      imageElement.height = imageNewSize.height;
     };
   });
 };
