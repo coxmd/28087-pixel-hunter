@@ -3,7 +3,7 @@ import AbstractView from '../../abstract-view';
 import getHeader from '../header';
 import getFooter from '../footer';
 import stats from '../stats-line';
-import {QuestionType} from '../../methods/get-question';
+import {QuestionType, AnswerType} from '../../methods/get-question';
 
 export default class GameView extends AbstractView {
   constructor(question, data) {
@@ -52,12 +52,18 @@ export default class GameView extends AbstractView {
     </form>`;
         break;
       case QuestionType.GAME3:
-        gameScreen += `<form class="game__content game__content--triple">`;
-        gameScreen += this.question.answers.reduce((str, current, i) => str + `
-<div class="game__option" data-option="${i}">
+        let gameOptions = ``;
+        let isPhoto = 0;
+        this.question.answers.forEach((current, i) => {
+          gameOptions += `<div class="game__option" data-option="${i}">
 <img src="${current.image.url}" alt="Option ${i}" width="${current.image.width}" height="${current.image.height}"/>
-      </div>`, ``);
-        gameScreen += `</form>`;
+      </div>`;
+          if (current.type === AnswerType.photo) {
+            isPhoto++;
+          }
+        });
+        gameScreen += `<form class="game__content game__content--triple" data-target="${isPhoto === 1 ? AnswerType.photo : AnswerType.painting}">
+${gameOptions}</form>`;
         break;
     }
 

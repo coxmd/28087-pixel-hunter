@@ -1,3 +1,5 @@
+import App from '../application';
+
 export const QuestionType = {
   GAME1: `two-of-two`,
   GAME2: `tinder-like`,
@@ -10,9 +12,13 @@ export const AnswerType = {
 };
 AnswerType.paint = AnswerType.painting;
 
-export const randomQuestion = (list) => {
-  const questionIndex = Math.floor(Math.random() * list.length);
-  return list[questionIndex];
+
+export const randomQuestion = () => {
+  if (typeof App._questionListCurrent === `undefined` || App._questionListCurrent.length === 0) {
+    App._questionListCurrent = App.questionList.slice();
+  }
+  App._questionListCurrent.sort(() => Math.random() - 0.5);
+  return App._questionListCurrent.pop();
 };
 
 const DATA_URL = `https://es.dump.academy/pixel-hunter/questions`;
