@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {resize} from './check-image-sizes';
+import {resize} from '../methods/check-image-sizes';
 
 const createTestForFrame = (frame) => {
   const assertRatio = (given, expected) => {

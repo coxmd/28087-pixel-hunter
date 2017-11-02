@@ -1,5 +1,5 @@
 import assert from 'assert';
-import Timer from './get-timer';
+import Timer from '../methods/get-timer';
 
 describe(`Timer`, () => {
   it(`should return 30`, () => {

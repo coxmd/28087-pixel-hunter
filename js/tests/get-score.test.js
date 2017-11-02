@@ -1,5 +1,5 @@
 import assert from 'assert';
-import getScore from './get-score';
+import getScore from '../methods/get-score';
 
 const defaultAnswers = [`NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`, `NORMAL`]; // 100 points
 
