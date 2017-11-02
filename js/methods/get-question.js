@@ -10,9 +10,9 @@ export const AnswerType = {
 };
 AnswerType.paint = AnswerType.painting;
 
-export const randomQuestion = (list) => {
-  const questionIndex = Math.floor(Math.random() * list.length);
-  return list[questionIndex];
+export const randomQuestion = (questionList) => {
+  questionList.sort(() => Math.random() - 0.5);
+  return questionList.pop();
 };
 
 const DATA_URL = `https://es.dump.academy/pixel-hunter/questions`;

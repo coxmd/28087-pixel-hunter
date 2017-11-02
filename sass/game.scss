@@ -17,6 +17,22 @@
   transform: translateX(-50%);
 }
 
+.game__timer.is-animated {
+  animation: tick .5s linear infinite;
+}
+
+@keyframes tick {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .game__lives {
   position: absolute;
   top: 20px;

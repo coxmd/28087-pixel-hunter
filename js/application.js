@@ -50,6 +50,9 @@ export default class Application {
     }).then((responseData) => {
       this.questionList = responseData;
       onHashChange();
+      if (location.hash.replace(`#`, ``) === ``) {
+        this.showGreeting();
+      }
     });
   }
 
