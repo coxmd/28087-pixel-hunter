@@ -49,7 +49,10 @@ export default class Application {
       throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
     }).then((responseData) => {
       this.questionList = responseData;
-      greetingScreen.init();
+      onHashChange();
+      if (location.hash.replace(`#`, ``) === ``) {
+        this.showGreeting();
+      }
     });
   }
 

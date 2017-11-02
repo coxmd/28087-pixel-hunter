@@ -13,6 +13,7 @@ class GameScreen {
     this.questions = 10;
     this.timer = new Timer(30);
     clearInterval(this._currTimer);
+    this._questionList = App.questionList.slice();
     this.next();
   }
 
@@ -43,7 +44,7 @@ class GameScreen {
 
   next() {
     if (this.questions > 0 && this.lives >= 0) {
-      const currQuestion = getQuestion();
+      const currQuestion = getQuestion(this._questionList);
       const screen = new View(currQuestion, {lives: this.lives, answers: this.answers, timer: this.timer.time});
       this.timeControl(screen);
 
@@ -51,7 +52,11 @@ class GameScreen {
       checkImageSizes(screen.element);
 
       screen.goBack = () => {
-        App.showGreeting();
+        /*eslint-disable */
+        if (confirm(`Вся игра будет потеряна. Уверены?`)) {
+          App.showGreeting();
+        }
+        /*eslint-enable */
       };
 
       screen.onAnswerClick = (element, evt) => {
