@@ -52,11 +52,10 @@ class GameScreen {
       checkImageSizes(screen.element);
 
       screen.goBack = () => {
-        /*eslint-disable */
+        // eslint-disable-next-line
         if (confirm(`Вся игра будет потеряна. Уверены?`)) {
           App.showGreeting();
         }
-        /*eslint-enable */
       };
 
       screen.onAnswerClick = (element, evt) => {
