@@ -13,15 +13,12 @@ export default class GameView extends AbstractView {
   }
 
   get template() {
-    let gameScreen = `${getHeader(this.data)}
-      <div class="game">
-    <p class="game__task">${this.question.question}</p>`;
-
+    let gameScreen = ``;
     switch (this.question.type) {
       case QuestionType.GAME1:
-        gameScreen += `<form class="game__content">`;
-        gameScreen += this.question.answers.reduce((str, current, i) => str + `
-<div class="game__option">
+        const game1Options = (data) => data.reduce((str, current, i) => `
+        ${str}
+        <div class="game__option">
         <img src="${current.image.url}" alt="Option ${i}" width="${current.image.width}" height="${current.image.height}"/>
         <label class="game__answer game__answer--photo">
           <input name="question${i}" type="radio" value="photo"/>
@@ -32,11 +29,11 @@ export default class GameView extends AbstractView {
           <span>Рисунок</span>
         </label>
       </div>`, ``);
-        gameScreen += `</form>`;
+        gameScreen = `<form class="game__content">${game1Options(this.question.answers)}</form>`;
         break;
       case QuestionType.GAME2:
         const oneImage = this.question.answers[0].image;
-        gameScreen += `
+        gameScreen = `
     <form class="game__content  game__content--wide">
       <div class="game__option">
         <img src="${oneImage.url}" alt="Option 1" width="${oneImage.width}" height="${oneImage.height}"/>
@@ -52,25 +49,30 @@ export default class GameView extends AbstractView {
     </form>`;
         break;
       case QuestionType.GAME3:
-        let gameOptions = ``;
+        let game3Options = ``;
         let isPhoto = 0;
         this.question.answers.forEach((current, i) => {
-          gameOptions += `<div class="game__option" data-option="${i}">
+          game3Options += `<div class="game__option" data-option="${i}">
 <img src="${current.image.url}" alt="Option ${i}" width="${current.image.width}" height="${current.image.height}"/>
       </div>`;
           if (current.type === AnswerType.photo) {
             isPhoto++;
           }
         });
-        gameScreen += `<form class="game__content game__content--triple" data-target="${isPhoto === 1 ? AnswerType.photo : AnswerType.painting}">
-${gameOptions}</form>`;
+        gameScreen = `<form class="game__content game__content--triple" data-target="${isPhoto === 1 ? AnswerType.photo : AnswerType.painting}">
+${game3Options}</form>`;
         break;
     }
+    return `${getHeader(this.data)}
+      <div class="game">
+    <p class="game__task">${this.question.question}</p>
+    ${gameScreen}
 
-    gameScreen += `<div class="stats">${stats(this.data.answers)}</div>
+
+<div class="stats">${stats(this.data.answers)}</div>
 </div>
-${getFooter()}`;
-    return gameScreen;
+${getFooter()}
+`;
   }
 
   bind() {

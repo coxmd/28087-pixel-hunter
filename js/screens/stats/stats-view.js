@@ -25,7 +25,7 @@ export default class StatsView extends AbstractView {
     const content = resultsData.reverse().reduce((result, current, i) => {
       if (current.answers.length === 10 && current.lives >= 0) {
         const score = getScore(current.answers, current.lives);
-        return result + `
+        return `${result}
 <table class="result__table">
       <tr>
         <td class="result__number">${i + 1}</td>
@@ -62,7 +62,7 @@ export default class StatsView extends AbstractView {
       </table>
 `;
       } else {
-        return result + `
+        return `${result}
 <table class="result__table">
       <tr>
         <td class="result__number">${i + 1}</td>
