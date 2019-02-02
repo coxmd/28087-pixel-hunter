@@ -5,4 +5,3 @@
 HTML Academy
 
 Продвинутый JavaScript #3 
-
